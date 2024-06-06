@@ -1,7 +1,6 @@
-import { Box, Heading, Text, VStack } from "@chakra-ui/react";
-import { Footer } from "../../components/Footer/Footer";
+import { Box, Heading, Image, Stack, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { Work } from "../../components/Home/Work";
+import { LandingLinks } from "../../components/Home/LandingLinks";
 
 export const Home = () => {
   return (
@@ -14,22 +13,26 @@ export const Home = () => {
           ease: [0.6, -0.05, 0.01, 0.99],
         }}
       >
-        <Box bg="gray.100" borderRadius={15} boxSize={150} />
-        <VStack alignItems="left" mt={10}>
-          <Heading fontWeight="semibold" mb={5}>
-            justin zhao
-          </Heading>
+        <Stack
+          direction={["column", "row"]}
+          spacing={10}
+          alignItems={{ base: "flex-start", md: "center" }}
+        >
+          <Image
+            src="/images/me/profilepic.jpg"
+            borderRadius={{ base: "15", md: "50%" }}
+            boxSize={200}
+          />
 
-          <Text>
-            nice to meet you! my name is justin, an nyu student living in new
-            york city, though my roots are in southern california.
-          </Text>
+          <VStack alignItems="left" spacing="5">
+            <Heading fontWeight="medium">justin zhao</Heading>
 
-          <Text>
-            i love all things related to photography, coffee, and tech. hope
-            you're able to learn more about me on this site!
-          </Text>
-        </VStack>
+            <Text>
+              nice to meet you! i'm justin, a recent nyu grad living in new york
+              city. i grew up in southern california & was born in utah.
+            </Text>
+          </VStack>
+        </Stack>
       </motion.main>
 
       <motion.main
@@ -41,10 +44,8 @@ export const Home = () => {
           ease: [0.6, -0.05, 0.01, 0.99],
         }}
       >
-        <Work />
+        <LandingLinks />
       </motion.main>
-
-      <Footer />
     </Box>
   );
 };

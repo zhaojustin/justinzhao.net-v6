@@ -29,7 +29,7 @@ export const BackToProjectsButton = ({ setActiveProject }) => {
         _hover={{ bg: "blue.100", transition: "0.2s ease-in-out" }}
       >
         <Icon as={LuArrowLeft} color="blue.400" mr={2} />
-        <Text color="blue.400">Back to Projects</Text>
+        <Text color="blue.400">All projects</Text>
       </Box>
     </motion.main>
   );

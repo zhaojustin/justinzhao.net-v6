@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-export const Footer = () => {
+export const CustomNavLinks = () => {
   const containerVariants = {
     initial: { opacity: 0 },
     animate: {
@@ -42,62 +42,6 @@ export const Footer = () => {
       animate="animate"
     >
       <VStack alignItems="left" mt={10} gap={5}>
-        {/* links */}
-        <HStack gap={5}>
-          <motion.div variants={childVariants}>
-            <Text
-              as={Link}
-              to="/"
-              color="GrayText"
-              _hover={{
-                color: "blue.400",
-                transition: "0.2s ease-in",
-              }}
-            >
-              home
-            </Text>
-          </motion.div>
-          <motion.div variants={childVariants}>
-            <Text
-              as={Link}
-              to="/photos"
-              color="GrayText"
-              _hover={{
-                color: "blue.400",
-                transition: "0.2s ease-in",
-              }}
-            >
-              photography
-            </Text>
-          </motion.div>
-          <motion.div variants={childVariants}>
-            <Text
-              as={Link}
-              to="/projects"
-              color="GrayText"
-              _hover={{
-                color: "blue.400",
-                transition: "0.2s ease-in",
-              }}
-            >
-              projects
-            </Text>
-          </motion.div>
-          <motion.div variants={childVariants}>
-            <Text
-              as={Link}
-              to="/food"
-              color="GrayText"
-              _hover={{
-                color: "blue.400",
-                transition: "0.2s ease-in",
-              }}
-            >
-              food
-            </Text>
-          </motion.div>
-        </HStack>
-
         {/* socials */}
         <HStack gap={5}>
           <motion.div variants={childVariants}>
@@ -159,6 +103,62 @@ export const Footer = () => {
                 transition: "0.2s ease-in",
               }}
             />
+          </motion.div>
+        </HStack>
+
+        {/* links */}
+        <HStack gap={5}>
+          <motion.div variants={childVariants}>
+            <Text
+              as={Link}
+              to="/"
+              color="GrayText"
+              _hover={{
+                color: "blue.400",
+                transition: "0.2s ease-in",
+              }}
+            >
+              home
+            </Text>
+          </motion.div>
+          <motion.div variants={childVariants}>
+            <Text
+              as={Link}
+              to="/photos"
+              color="GrayText"
+              _hover={{
+                color: "blue.400",
+                transition: "0.2s ease-in",
+              }}
+            >
+              photography
+            </Text>
+          </motion.div>
+          <motion.div variants={childVariants}>
+            <Text
+              as={Link}
+              to="/projects"
+              color="GrayText"
+              _hover={{
+                color: "blue.400",
+                transition: "0.2s ease-in",
+              }}
+            >
+              projects
+            </Text>
+          </motion.div>
+          <motion.div variants={childVariants}>
+            <Text
+              as={Link}
+              to="/food"
+              color="GrayText"
+              _hover={{
+                color: "blue.400",
+                transition: "0.2s ease-in",
+              }}
+            >
+              food
+            </Text>
           </motion.div>
         </HStack>
       </VStack>

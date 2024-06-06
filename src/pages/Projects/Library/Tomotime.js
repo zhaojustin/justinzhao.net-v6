@@ -1,11 +1,10 @@
 import { Heading, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { BackToProjectsButton } from "../../../components/Projects/BackToProjectsButton";
-import { Footer } from "../../../components/Footer/Footer";
 
 export const Tomotime = ({ setActiveProject }) => {
   return (
-    <VStack alignItems="left">
+    <VStack alignItems="left" mt="10">
       <BackToProjectsButton setActiveProject={setActiveProject} />
 
       <motion.main
@@ -19,8 +18,6 @@ export const Tomotime = ({ setActiveProject }) => {
       >
         <Heading fontWeight="semibold">Tomotime</Heading>
         <Text>Description</Text>
-
-        <Footer />
       </motion.main>
     </VStack>
   );

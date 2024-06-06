@@ -1,9 +1,9 @@
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
-import { Footer } from "../../components/Footer/Footer";
 import { motion } from "framer-motion";
 import { Selector } from "../../components/Photos/Selector";
 import { useState } from "react";
 import { Gallery } from "./Gallery";
+import { CustomNavLinks } from "../../components/NavLinks/CustomNavLinks";
 
 export const Photos = () => {
   const [nyc, setNyc] = useState(true);
@@ -19,6 +19,18 @@ export const Photos = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{
           duration: 1.2,
+          ease: [0.6, -0.05, 0.01, 0.99],
+        }}
+      >
+        <CustomNavLinks />
+      </motion.main>
+
+      <motion.main
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          duration: 1.2,
+          delay: 0.2,
           ease: [0.6, -0.05, 0.01, 0.99],
         }}
       >
@@ -76,8 +88,6 @@ export const Photos = () => {
       >
         <Gallery nyc={nyc} singapore={singapore} korea={korea} cali={cali} />
       </motion.main>
-
-      <Footer />
     </Box>
   );
 };

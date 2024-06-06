@@ -1,8 +1,8 @@
 import { Box, HStack, Heading, Image, Text, VStack } from "@chakra-ui/react";
-import { Footer } from "../../components/Footer/Footer";
 import { motion } from "framer-motion";
 import { Tomotime } from "./Library/Tomotime";
 import { useState } from "react";
+import { CustomNavLinks } from "../../components/NavLinks/CustomNavLinks";
 
 export const Projects = () => {
   const [activeProject, setActiveProject] = useState("");
@@ -60,6 +60,17 @@ export const Projects = () => {
 
   return (
     <Box>
+      <motion.main
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          duration: 1.2,
+          ease: [0.6, -0.05, 0.01, 0.99],
+        }}
+      >
+        <CustomNavLinks />
+      </motion.main>
+
       {activeProject == "" && (
         <>
           <motion.main
@@ -67,6 +78,7 @@ export const Projects = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{
               duration: 1.2,
+              delay: 0.2,
               ease: [0.6, -0.05, 0.01, 0.99],
             }}
           >
@@ -132,8 +144,6 @@ export const Projects = () => {
               })}
             </VStack>
           </motion.main>
-
-          <Footer />
         </>
       )}
 
