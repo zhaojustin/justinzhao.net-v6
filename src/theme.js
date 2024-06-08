@@ -7,4 +7,11 @@ export const theme = extendTheme({
     heading: `'Figtree', sans-serif`,
     body: `'Figtree', sans-serif`,
   },
+  components: {
+    Text: {
+      baseStyle: {
+        fontWeight: "medium",
+      },
+    },
+  },
 });

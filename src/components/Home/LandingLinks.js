@@ -59,10 +59,10 @@ const LinkComponent = ({ img, hoverImg, title, description, link }) => {
       }}
       direction={{ base: "row", md: "column" }}
       alignItems={{ base: "center", md: "flex-start" }}
-      spacing="5"
+      spacing="2"
       bg="gray.100"
-      borderRadius={20}
-      p="5"
+      borderRadius={40}
+      p="7"
       onMouseEnter={() => setImageSrc(hoverImg)}
       onMouseLeave={() => setImageSrc(img)}
       _hover={{

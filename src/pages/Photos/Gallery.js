@@ -1,18 +1,36 @@
-import { Text, Image, VStack, Flex } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import {
+  Text,
+  Image,
+  VStack,
+  Flex,
+  Box,
+  SimpleGrid,
+  Stack,
+} from "@chakra-ui/react";
+import { createRef, useEffect, useRef, useState } from "react";
 
-export const Gallery = ({ nyc, cali, singapore, korea }) => {
+export const Gallery = () => {
   const [imageUrls, setImageUrls] = useState({});
 
+  // scroll to section
+  const sectionRefs = useRef({});
+  const setRef = (key, node) => {
+    if (node) {
+      sectionRefs.current[key] = node;
+    }
+  };
+  const scrollToSection = (key) => {
+    sectionRefs.current[key].scrollIntoView();
+  };
+
+  // fetch images
   useEffect(() => {
     const bucketName = "justins-photos";
     const baseUrl = `https://${bucketName}.s3.us-east-1.amazonaws.com`;
     const fetchS3Objects = async () => {
       try {
         const response = await fetch(`${baseUrl}?list-type=2`);
-        console.log(response);
         const text = await response.text();
-        console.log(text);
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(text, "text/xml");
         const keys = Array.from(xmlDoc.getElementsByTagName("Key"));
@@ -28,10 +46,6 @@ export const Gallery = ({ nyc, cali, singapore, korea }) => {
         }
 
         setImageUrls(tmpImageUrls);
-
-        console.log(tmpImageUrls);
-        /* 
-        setImageUrls(urls); */
       } catch (error) {
         console.error("Error fetching S3 objects:", error);
       }
@@ -41,17 +55,65 @@ export const Gallery = ({ nyc, cali, singapore, korea }) => {
   }, []);
 
   return (
-    <VStack mx={-5}>
-      {nyc && <VStack></VStack>}{" "}
-      {singapore && (
-        <Flex flexWrap="wrap">
-          {Object.keys(imageUrls).map((key) => {
-            return imageUrls[key].map((url) => {
-              return <Photo src={url} caption="Haji Lane" />;
-            });
-          })}
-        </Flex>
-      )}
+    <VStack mt={10}>
+      {/* gallery links */}
+      <VStack mb={10} alignItems="left" w="100%">
+        <SimpleGrid columns={[1, 2]} w="100%" spacing={10} mt={5}>
+          {Object.keys(imageUrls).map((key) => (
+            <Box
+              mt={2}
+              key={key}
+              onClick={() => scrollToSection(key)}
+              _hover={{ cursor: "pointer" }}
+            >
+              <Stack
+                direction={["row", "column"]}
+                alignItems="center"
+                spacing={5}
+              >
+                <Image
+                  src={imageUrls[key][0]}
+                  boxSize={[36, 60]}
+                  objectFit="cover"
+                  borderRadius={50}
+                  shadow="xl"
+                />
+                <Text
+                  fontSize="xl"
+                  color="blue.500"
+                  cursor="pointer"
+                  fontWeight="semibold"
+                >
+                  {key}
+                </Text>
+              </Stack>
+            </Box>
+          ))}
+        </SimpleGrid>
+      </VStack>
+
+      {/* render images */}
+      <Flex flexWrap="wrap" mx={-5}>
+        {Object.keys(imageUrls).map((key, idx) => {
+          sectionRefs.current[key] = createRef();
+          return (
+            <VStack
+              alignItems="left"
+              mt={idx !== 0 ? 20 : 10}
+              ref={(node) => setRef(key, node)}
+            >
+              <Text m={5} fontWeight="semibold" fontSize="xx-large">
+                {key}
+              </Text>
+              <Flex flexWrap="wrap">
+                {imageUrls[key].map((url) => {
+                  return <Photo src={url} caption="Haji Lane" />;
+                })}
+              </Flex>
+            </VStack>
+          );
+        })}
+      </Flex>
     </VStack>
   );
 };

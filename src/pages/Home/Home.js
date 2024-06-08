@@ -20,8 +20,9 @@ export const Home = () => {
         >
           <Image
             src="/images/me/profilepic.jpg"
-            borderRadius={{ base: "15", md: "50%" }}
-            boxSize={200}
+            borderRadius={{ base: "50" }}
+            boxSize={{ base: 150, md: 200 }}
+            shadow="2xl"
           />
 
           <VStack alignItems="left" spacing="5">
