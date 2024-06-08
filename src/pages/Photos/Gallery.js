@@ -41,8 +41,11 @@ export const Gallery = () => {
 
         for (const url of urls) {
           const album_name = url.replace(baseUrl, "").split("/")[1];
-          if (!tmpImageUrls[album_name]) tmpImageUrls[album_name] = [url];
-          else tmpImageUrls[album_name].push(url);
+          if (url.replace(baseUrl, "").split("/")[2] !== "") {
+            console.log(url);
+            if (!tmpImageUrls[album_name]) tmpImageUrls[album_name] = [url];
+            else tmpImageUrls[album_name].push(url);
+          }
         }
 
         setImageUrls(tmpImageUrls);
@@ -98,6 +101,7 @@ export const Gallery = () => {
           sectionRefs.current[key] = createRef();
           return (
             <VStack
+              key={key}
               alignItems="left"
               mt={idx !== 0 ? 20 : 10}
               ref={(node) => setRef(key, node)}
@@ -118,7 +122,8 @@ export const Gallery = () => {
   );
 };
 
-const Photo = ({ src, caption }) => {
+const Photo = ({ src }) => {
+  if (src.includes("thumbnail")) return undefined;
   return (
     <VStack
       py={5}
