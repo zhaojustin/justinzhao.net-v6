@@ -44,7 +44,7 @@ export const Photos = () => {
 
   useEffect(() => {
     const responsivePosition = () => {
-      if (notMobile) return "top-left";
+      if (notMobile) return "top";
       return "top";
     };
 
