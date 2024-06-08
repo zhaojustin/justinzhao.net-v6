@@ -10,20 +10,32 @@ import {
   useToast,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Gallery } from "./Gallery";
 import { CustomNavLinks } from "../../components/NavLinks/CustomNavLinks";
 import { useEffect, useState } from "react";
 import { FiArrowUp } from "react-icons/fi";
+import { ImageViewer } from "../../components/Photos/ImageViewer";
 
 export const Photos = () => {
   const [showToast, setShowToast] = useState(false);
   const toast = useToast();
   const [notMobile] = useMediaQuery("(min-width: 480px)");
 
+  // control image viewer overlay
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+  const [imgViewerUrl, setImgViewerUrl] = useState("");
+  const openOverlay = (imgUrl) => {
+    setIsOverlayOpen(true);
+    setImgViewerUrl(imgUrl);
+  };
+  const closeOverlay = () => setIsOverlayOpen(false);
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 1200) setShowToast(true);
+      setIsOverlayOpen(false);
+
+      if (window.scrollY > 1600) setShowToast(true);
       else setShowToast(false);
     };
     window.addEventListener("scroll", handleScroll);
@@ -36,7 +48,7 @@ export const Photos = () => {
       return "top";
     };
 
-    if (!showToast) toast.closeAll();
+    if (!showToast || isOverlayOpen) toast.closeAll();
     else
       toast({
         position: responsivePosition(),
@@ -63,7 +75,7 @@ export const Photos = () => {
         isClosable: false,
         duration: null,
       });
-  }, [showToast]);
+  }, [showToast, isOverlayOpen]);
 
   return (
     <Box>
@@ -120,7 +132,15 @@ export const Photos = () => {
           ease: [0.6, -0.05, 0.01, 0.99],
         }}
       >
-        <Gallery />
+        <Gallery
+          openOverlay={(imgUrl) => openOverlay(imgUrl)}
+          closeOverlay={closeOverlay}
+        />
+        <AnimatePresence>
+          {isOverlayOpen && (
+            <ImageViewer onClose={closeOverlay} imgUrl={imgViewerUrl} />
+          )}
+        </AnimatePresence>
       </motion.main>
     </Box>
   );

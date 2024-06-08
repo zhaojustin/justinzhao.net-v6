@@ -6,10 +6,11 @@ import {
   Box,
   SimpleGrid,
   Stack,
+  Button,
 } from "@chakra-ui/react";
-import { createRef, useEffect, useRef, useState } from "react";
+import { createRef, useCallback, useEffect, useRef, useState } from "react";
 
-export const Gallery = () => {
+export const Gallery = ({ openOverlay, closeOverlay }) => {
   const [imageUrls, setImageUrls] = useState({});
 
   // scroll to section
@@ -42,7 +43,6 @@ export const Gallery = () => {
         for (const url of urls) {
           const album_name = url.replace(baseUrl, "").split("/")[1];
           if (url.replace(baseUrl, "").split("/")[2] !== "") {
-            console.log(url);
             if (!tmpImageUrls[album_name]) tmpImageUrls[album_name] = [url];
             else tmpImageUrls[album_name].push(url);
           }
@@ -111,7 +111,9 @@ export const Gallery = () => {
               </Text>
               <Flex flexWrap="wrap">
                 {imageUrls[key].map((url) => {
-                  return <Photo src={url} caption="Haji Lane" />;
+                  return (
+                    <Photo src={url} key={url} openOverlay={openOverlay} />
+                  );
                 })}
               </Flex>
             </VStack>
@@ -122,7 +124,7 @@ export const Gallery = () => {
   );
 };
 
-const Photo = ({ src }) => {
+const Photo = ({ src, openOverlay }) => {
   if (src.includes("thumbnail")) return undefined;
   return (
     <VStack
@@ -132,7 +134,12 @@ const Photo = ({ src }) => {
       p={5}
       width={src.split("/")[4].includes("v_") ? "50%" : "100%"}
     >
-      <Image src={src} alt="image" />
+      <Image
+        src={src}
+        alt="image"
+        onClick={() => openOverlay(src)}
+        _hover={{ cursor: "pointer" }}
+      />
     </VStack>
   );
 };
